@@ -1,7 +1,3 @@
-# BLOC Consumer
+# BLOC PROVIDER
 
-Merupakan Gabungan antara Bloc Builder dan Bloc Listener
-
-- sudah disediakan BuilWhen dan ListenWhen
-- tetapi harus kondisi bloclistener dan blocBuilder ada
-- jika sala satu tidak ada, lebih baik tidak menggunakan BlocConsumer
+dimana sumber datanya bisa di panggil dimana saja

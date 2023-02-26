@@ -1,62 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:stream/bloc/counter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stream/bloc/counter.dart';
+
+import 'data_widget.dart';
 
 class HomePage extends StatelessWidget {
-  Counter myCounter = Counter(init: 0);
+  Counter mycounter = Counter(init: 0);
 
   @override
   Widget build(BuildContext context) {
+    Counter mycounter = BlocProvider.of<Counter>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Bloc Listener"),
-        centerTitle: true,
-      ),
-      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        BlocConsumer<Counter, int>(
-          bloc: myCounter,
-          builder: (context, state) {
-            return Text(
-              '$state',
-              style: const TextStyle(fontSize: 50),
-            );
-          },
-          listener: (context, state) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  duration: const Duration(seconds: 2),
-                  content: Text("Muncul Notif jika $state")),
-            );
-          },
-          listenWhen: (previous, current) {
-            if (current == 3) {
-              return true;
-            } else {
-              return false;
-            }
-          },
+        appBar: AppBar(
+          title: const Text("Bloc Provider"),
+          centerTitle: true,
         ),
-        const SizedBox(
-          height: 50,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            IconButton(
-              onPressed: () {
-                myCounter.decrement();
-              },
-              icon: const Icon(Icons.remove),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Material(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(15),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(15),
+                    onTap: () {
+                      mycounter.increment();
+                    },
+                    child: const SizedBox(
+                      width: 70,
+                      height: 100,
+                      child: Center(
+                          child: Icon(
+                        Icons.remove,
+                        color: Colors.white,
+                      )),
+                    ),
+                  ),
+                ),
+                const DataWidget(), //lempar data
+                Material(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(15),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(15),
+                    onTap: () {
+                      mycounter.increment();
+                    },
+                    child: const SizedBox(
+                      width: 70,
+                      height: 100,
+                      child: Center(
+                          child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      )),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            IconButton(
-              onPressed: () {
-                myCounter.increment();
-              },
-              icon: const Icon(Icons.add),
-            )
           ],
-        )
-      ]),
-    );
+        ));
   }
 }
