@@ -18,14 +18,26 @@ class MyApp extends StatelessWidget {
 }
 
 class CounterCubit extends Cubit<int> {
-  CounterCubit() : super(0);
+  CounterCubit({this.nilaiUtama = 0})
+      : super(nilaiUtama); //super ini ada angka 0 dimana nilai utama state
+
+  int nilaiUtama;
+
+  void tambahData() {
+    emit(state + 1); //emit untuk setter lagsg di get
+  }
+
+  void kurangData() {
+    emit(state - 1);
+  }
 }
 
 class HomePage extends StatelessWidget {
-  CounterCubit myCounter = CounterCubit();
+  CounterCubit myCounter = CounterCubit(nilaiUtama: 0);
 
   @override
   Widget build(BuildContext context) {
+    print("Build Halaman");
     return Scaffold(
         appBar: AppBar(
           title: const Text("Basic Cubit"),
@@ -34,14 +46,35 @@ class HomePage extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            StreamBuilder(
+              initialData: myCounter.nilaiUtama, //initial data
+              stream: myCounter.stream,
+              builder: (context, snapshot) {
+                print("Build Hanya yang di state");
+                return Center(
+                  child: Text(
+                    "${snapshot.data}",
+                    style: const TextStyle(fontSize: 50),
+                  ),
+                );
+              },
+            ),
             const SizedBox(
               height: 20,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.remove)),
-                IconButton(onPressed: () {}, icon: const Icon(Icons.add))
+                IconButton(
+                    onPressed: () {
+                      myCounter.kurangData();
+                    },
+                    icon: const Icon(Icons.remove)),
+                IconButton(
+                    onPressed: () {
+                      myCounter.tambahData();
+                    },
+                    icon: const Icon(Icons.add))
               ],
             )
           ],
