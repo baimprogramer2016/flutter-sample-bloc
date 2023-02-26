@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
         BlocBuilder<Counter, int>(
           bloc: myCounter,
           buildWhen: (previous, current) {
-            return (current == 5) ? true : false;
+            return (current % 2 == 1) ? true : false;
           },
           builder: (context, state) {
             return Text(
