@@ -1,8 +1,7 @@
-# BLOC LISTENER
+# BLOC Consumer
 
-Merupakan Suatu Akse (cth memanggil widget) atas dari membaca blocbuilder
+Merupakan Gabungan antara Bloc Builder dan Bloc Listener
 
-1. bloc :sumber data
-2. listener : outpuntnya dari state yang berasal dari perubahan state blocbuilder
-3. child : BlocBuilder
-4. ListenWhen : membuat suatu kondisi pemanggilan listener
+- sudah disediakan BuilWhen dan ListenWhen
+- tetapi harus kondisi bloclistener dan blocBuilder ada
+- jika sala satu tidak ada, lebih baik tidak menggunakan BlocConsumer

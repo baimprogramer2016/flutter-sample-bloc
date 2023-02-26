@@ -13,8 +13,14 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        BlocListener<Counter, int>(
+        BlocConsumer<Counter, int>(
           bloc: myCounter,
+          builder: (context, state) {
+            return Text(
+              '$state',
+              style: const TextStyle(fontSize: 50),
+            );
+          },
           listener: (context, state) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -23,21 +29,12 @@ class HomePage extends StatelessWidget {
             );
           },
           listenWhen: (previous, current) {
-            if (current == 5) {
+            if (current == 3) {
               return true;
             } else {
               return false;
             }
           },
-          child: BlocBuilder<Counter, int>(
-            bloc: myCounter,
-            builder: (context, state) {
-              return Text(
-                '$state',
-                style: const TextStyle(fontSize: 50),
-              );
-            },
-          ),
         ),
         const SizedBox(
           height: 50,
